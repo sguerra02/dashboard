@@ -60,7 +60,7 @@ class DashboardApp {
         const timeString = now.toLocaleTimeString('en-US', {hour12: false});
         
         // Format date
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
         const dateString = now.toLocaleDateString('en-US', options);
         
         // Update all time and date elements
@@ -273,12 +273,14 @@ class DashboardApp {
     
     // Goals
     initGoals() {
-        this.goals = JSON.parse(localStorage.getItem('dashboardGoals')) || [
-            { id: 1, text: "Learn React.js", progress: 65 },
-            { id: 2, text: "Run a marathon", progress: 30 },
-            { id: 3, text: "Save $5,000", progress: 45 },
-            { id: 4, text: "Read 12 books this year", progress: 25 }
-        ];
+        if (localStorage.getItem('dashboardGoals')
+            && localStorage.getItem('dashboardGoals') != "undefined"
+        ) {
+            console.log(localStorage.getItem('dashboardGoals'))
+         this.goals = JSON.parse(localStorage.getItem('dashboardGoals'));
+        }
+        else { this.goals = [ ]; }
+        
         
         this.renderGoals();
         this.renderDashboardGoal();
@@ -391,11 +393,14 @@ class DashboardApp {
     
     // Notes
     initNotes() {
-        this.notes = JSON.parse(localStorage.getItem('dashboardNotes')) || [
-            { id: 1, date: "2023-10-15", content: "Remember to check the budget app for monthly expenses." },
-            { id: 2, date: "2023-10-14", content: "Meeting with team at 2 PM tomorrow." },
-            { id: 3, date: "2023-10-13", content: "Great workout today! Feeling energized." }
-        ];
+        if (localStorage.getItem('dashboardNotes')
+            && localStorage.getItem('dashboardNotes') != "undefined"
+        ) {
+            console.log(localStorage.getItem('dashboardNotes'))
+         this.notes = JSON.parse(localStorage.getItem('dashboardNotes'));
+        }
+        else { this.notes = [ ]; }
+        
         
         this.renderNotes();
         
